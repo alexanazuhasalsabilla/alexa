@@ -238,3 +238,14 @@ summary::marker {
     width: 90%;
   }
 }
+/* ===== Cincin untuk planet ===== */
+[data-planet="jupiter"] .planet::before,
+[data-planet="saturn"] .planet::before,
+[data-planet="uranus"] .planet::before,
+[data-planet="neptune"] .planet::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform
+
