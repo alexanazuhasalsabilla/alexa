@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function setPlanetAngle(orbit, angle) {
     const planet = orbit.querySelector(".planet");
     if (planet) {
-      planet.style.transform = rotate(${angle}deg) translateX(var(--r));
+      planet.style.transform = `rotate(${angle}deg) translateX(var(--r))`;
     }
   }
 
