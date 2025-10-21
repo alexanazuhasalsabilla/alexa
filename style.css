@@ -1,20 +1,240 @@
+/* ====== Reset & dasar ====== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: #FFFFEO; /* Warna kuning cerah */
-  font-family: Arial, sans-serif; /* Jenis huruf yang bersih dan mudah dibaca */
-  color: #191970; /* Warna teks utama (Biru Gelap) */
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: radial-gradient(circle at center, #000010, #000);
+  color: #fff;
+  min-height: 200vh; /* agar bisa discroll ke bawah */
+  overflow-x: hidden;
 }
 
-.kartu-profil {
-  width: 300px;
-  margin: 50px auto; /* 50px jarak atas/bawah, auto menengahkan kiri/kanan */
-  padding: 20px;
-  background-color: white;
-  border-radius: 15px; /* Membuat sudut menjadi melengkung */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Efek bayangan */
-  text-align: center; /* Menengahkan semua teks di dalam kartu */
+/* ====== Header / Topbar ====== */
+.topbar {
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  padding: 1rem;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
-.kartu-profil img {
-  width: 150px
-  border-radius: 50%; /* Trik untuk membuat gambar persegi menjadi lingkaran sempurna */
+.topbar h1 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  color: #ffe066;
+  text-shadow: 0 0 8px #ffef9c;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.controls label {
+  font-size: 0.9rem;
+  margin-right: 0.25rem;
+}
+
+.controls input[type="range"] {
+  accent-color: #ffe066;
+  width: 100px;
+}
+
+#playPause {
+  background: #222;
+  color: #ffe066;
+  border: 1px solid #555;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#playPause:hover {
+  background: #333;
+}
+
+/* ====== Tata letak utama ====== */
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* ====== Visual tata surya ====== */
+.visual {
+  flex: 1 1 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 600px;
+}
+
+.scene {
+  position: relative;
+  width: 900px;
+  height: 900px;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+/* ====== Matahari ====== */
+.sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  background: radial-gradient(circle, #ffcc00, #ff9900, #cc6600);
+  border-radius: 50%;
+  box-shadow: 0 0 40px #ffdd55, 0 0 80px #ff8800;
+  transform: translate(-50%, -50%);
+}
+
+/* ====== Orbit ====== */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+}
+
+/* ====== Planet ====== */
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  transform: rotate(0deg) translateX(var(--r));
+  transition: transform 0.1s linear;
+  cursor: pointer;
+}
+
+/* ===== Warna-warna planet ===== */
+[data-planet="mercury"] .planet { background: #b0b0b0; }
+[data-planet="venus"] .planet { background: #d8b26e; }
+[data-planet="earth"] .planet { background: #1e90ff; }
+[data-planet="mars"] .planet { background: #c1440e; }
+[data-planet="jupiter"] .planet { background: #e3b06f; }
+[data-planet="saturn"] .planet { background: #f6d89e; }
+[data-planet="uranus"] .planet { background: #7fffd4; }
+[data-planet="neptune"] .planet { background: #4169e1; }
+
+/* ===== Planet aktif (dipilih) ===== */
+.planet.selected {
+  outline: 2px solid #fff;
+  box-shadow: 0 0 12px 3px #fff;
+}
+
+/* ====== Panel info ====== */
+.info {
+  flex: 1 1 300px;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+#panelTitle {
+  text-align: center;
+  color: #ffe066;
+  margin-bottom: 0.8rem;
+}
+
+.planet-data dt {
+  font-weight: bold;
+  color: #ffe066;
+}
+
+.planet-data dd {
+  margin-bottom: 1rem;
+}
+
+/* ====== Tips & Deskripsi ====== */
+.legend {
+  margin-top: 1.5rem;
+}
+
+.legend h3 {
+  color: #ffcc00;
+  margin-bottom: 0.5rem;
+}
+
+.legend ul {
+  margin-left: 1.2rem;
+  list-style: square;
+  color: #ddd;
+}
+
+details {
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+
+summary {
+  cursor: pointer;
+  color: #ffe066;
+  font-weight: bold;
+  list-style: none;
+}
+
+summary::marker {
+  display: none;
+}
+
+.data-list {
+  margin-top: 0.5rem;
+  list-style: disc;
+  margin-left: 1.5rem;
+}
+
+.data-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* ====== Footer ====== */
+.footer {
+  text-align: center;
+  color: #aaa;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  border-top: 1px solid #222;
+  margin-top: 3rem;
+}
+
+/* ====== Responsif ====== */
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .scene {
+    width: 100%;
+    height: 600px;
+  }
+
+  .info {
+    width: 90%;
+  }
 }
