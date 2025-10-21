@@ -1,1 +1,97 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Solar_system.Edu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Infografis: Sistem Tata Surya</h1>
+    <div class="controls">
+      <button id="playPause" aria-pressed="false">Putar</button>
+      <label for="speed">Kecepatan</label>
+      <input id="speed" type="range" min="0.1" max="4" step="0.1" value="1" />
+      <label for="time">Waktu</label>
+      <input id="time" type="range" min="0" max="365" value="0" />
+    </div>
+  </header>
 
+  <main class="wrapper">
+    <section class="visual" aria-label="Visual tata surya">
+      <div id="scene" class="scene">
+        <!-- Matahari -->
+        <div class="sun" title="Matahari"></div>
+
+        <!-- Orbit dan planet -->
+        <div class="orbit" data-planet="mercury" style="--r:60px; --period:88;">
+          <div class="planet" data-name="Merkurius" data-radius="2440" data-desc-id="desc-mercury"></div>
+        </div>
+
+        <div class="orbit" data-planet="venus" style="--r:90px; --period:225;">
+          <div class="planet" data-name="Venus" data-radius="6052" data-desc-id="desc-venus"></div>
+        </div>
+
+        <div class="orbit" data-planet="earth" style="--r:130px; --period:365;">
+          <div class="planet" data-name="Bumi" data-radius="6371" data-desc-id="desc-earth"></div>
+        </div>
+
+        <div class="orbit" data-planet="mars" style="--r:170px; --period:687;">
+          <div class="planet" data-name="Mars" data-radius="3389" data-desc-id="desc-mars"></div>
+        </div>
+
+        <div class="orbit" data-planet="jupiter" style="--r:230px; --period:4333;">
+          <div class="planet" data-name="Yupiter" data-radius="69911" data-desc-id="desc-jupiter"></div>
+        </div>
+
+        <div class="orbit" data-planet="saturn" style="--r:300px; --period:10759;">
+          <div class="planet" data-name="Saturnus" data-radius="58232" data-desc-id="desc-saturn"></div>
+        </div>
+
+        <div class="orbit" data-planet="uranus" style="--r:360px; --period:30687;">
+          <div class="planet" data-name="Uranus" data-radius="25362" data-desc-id="desc-uranus"></div>
+        </div>
+
+        <div class="orbit" data-planet="neptune" style="--r:420px; --period:60190;">
+          <div class="planet" data-name="Neptunus" data-radius="24622" data-desc-id="desc-neptune"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="info" aria-live="polite">
+      <div id="panel">
+        <h2 id="panelTitle">Pilih sebuah planet</h2>
+        <dl id="planetData" class="planet-data"></dl>
+      </div>
+
+      <div class="legend">
+        <h3>Tips Penggunaan</h3>
+        <ul>
+          <li>Klik planet untuk menampilkan detail.</li>
+          <li>Gunakan slider untuk mengatur waktu/kecepatan animasi.</li>
+        </ul>
+      </div>
+
+      <details open>
+        <summary>Data singkat & Deskripsi</summary>
+        <ul class="data-list">
+          <li id="desc-sun"><b>Matahari</b> — Bintang pusat tata surya, sumber energi utama bagi semua planet. Suhunya mencapai lebih dari 5.000°C di permukaannya.</li>
+          <li id="desc-mercury"><b>Merkurius</b> — Planet terkecil dan terdekat dengan Matahari. Siang hari sangat panas, malamnya sangat dingin.</li>
+          <li id="desc-venus"><b>Venus</b> — Planet terpanas dengan atmosfer tebal dari gas karbon dioksida. Ukurannya mirip dengan Bumi.</li>
+          <li id="desc-earth"><b>Bumi</b> — Satu-satunya planet yang diketahui memiliki kehidupan. 71% permukaannya tertutup air.</li>
+          <li id="desc-mars"><b>Mars</b> — Disebut planet merah karena permukaannya kaya besi oksida. Pernah memiliki air di masa lalu.</li>
+          <li id="desc-jupiter"><b>Yupiter</b> — Planet terbesar dengan Bintik Merah Besar, badai raksasa yang telah berlangsung selama berabad-abad.</li>
+          <li id="desc-saturn"><b>Saturnus</b> — Dikenal karena cincin indah yang terbuat dari es dan batu. Planet gas raksasa kedua terbesar.</li>
+          <li id="desc-uranus"><b>Uranus</b> — Planet berwarna biru pucat yang berputar miring hampir sejajar dengan orbitnya. Tersusun dari es air dan metana.</li>
+          <li id="desc-neptune"><b>Neptunus</b> — Planet terjauh dan sangat dingin, dengan angin tercepat di tata surya, mencapai 2.000 km/jam.</li>
+        </ul>
+      </details>
+    </aside>
+  </main>
+
+  <footer class="footer">@SolarAtomic</footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
