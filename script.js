@@ -104,3 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
   panelTitle.textContent = "Pilih sebuah planet";
   planetData.innerHTML = "<dd>Klik salah satu planet di tata surya untuk melihat detailnya.</dd>";
 });
+
+document.addEventListener("keydown", (e) => {
+  if (e.code === "Space" && document.activeElement !== speedInput && document.activeElement !== timeInput) {
+    e.preventDefault();
+    playBtn.click();
+  }
+});
+
