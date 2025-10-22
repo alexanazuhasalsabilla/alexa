@@ -119,3 +119,10 @@ playBtn.addEventListener("click", () => {
   playBtn.setAttribute("aria-pressed", playing);
   light.classList.toggle("off", !playing);
 });
+
+document.getElementById("reset").addEventListener("click", () => {
+  simDay = 0;
+  simSpeed = 1;
+  speedInput.value = 1;
+  timeInput.value = 0;
+});
