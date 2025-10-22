@@ -10,58 +10,56 @@ document.addEventListener("DOMContentLoaded", () => {
   let playing = true;
   let simSpeed = 1;
   let simDay = 0;
+  let lastTime = null;
 
-  // ===== Hitung kecepatan sudut per hari =====
   function angularSpeed(period) {
     return 360 / period;
   }
 
-  // ===== Set posisi planet =====
   function setPlanetAngle(orbit, angle) {
-    const planet = orbit.querySelector(".planet");
-    if (planet) {
-      planet.style.transform = `rotate(${angle}deg) translateX(var(--r))`;
-    }
+    orbit.style.transform = `rotate(${angle}deg)`;
   }
 
-  // ===== Loop utama animasi =====
-  function update() {
+  // ====== Loop utama animasi ======
+  function update(timestamp) {
     if (playing) {
-      simDay += simSpeed * 0.6; // percepatan waktu simulasi
+      if (!lastTime) lastTime = timestamp;
+      const delta = (timestamp - lastTime) / 1000; // detik
+      lastTime = timestamp;
+
+      simDay = (simDay + simSpeed * delta * 50) % 365;
+
       orbits.forEach((orbit) => {
-        const period = parseFloat(orbit.style.getPropertyValue("--period")) || 365;
+        const period = parseFloat(orbit.dataset.period) || 365;
         const angle = (simDay * angularSpeed(period)) % 360;
         setPlanetAngle(orbit, angle);
       });
-      timeInput.value = simDay % 365; // sinkron slider waktu
+
+      timeInput.value = simDay;
     }
     requestAnimationFrame(update);
   }
-  update();
+  requestAnimationFrame(update);
 
-  // ===== Tombol Play / Pause =====
   playBtn.addEventListener("click", () => {
     playing = !playing;
     playBtn.textContent = playing ? "Jeda" : "Putar";
     playBtn.setAttribute("aria-pressed", playing);
   });
 
-  // ===== Slider kecepatan =====
   speedInput.addEventListener("input", (e) => {
     simSpeed = parseFloat(e.target.value);
   });
 
-  // ===== Slider waktu manual =====
   timeInput.addEventListener("input", (e) => {
     simDay = parseFloat(e.target.value);
     orbits.forEach((orbit) => {
-      const period = parseFloat(orbit.style.getPropertyValue("--period")) || 365;
+      const period = parseFloat(orbit.dataset.period) || 365;
       const angle = (simDay * angularSpeed(period)) % 360;
       setPlanetAngle(orbit, angle);
     });
   });
 
-  // ===== Tampilkan info planet =====
   function showInfo(planet) {
     const name = planet.dataset.name;
     const radius = planet.dataset.radius;
@@ -79,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
     planet.classList.add("selected");
   }
 
-  // ===== Klik planet =====
   document.querySelectorAll(".planet").forEach((planet) => {
     planet.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -87,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===== Klik luar planet (reset info) =====
   scene.addEventListener("click", (e) => {
     if (e.target === scene) {
       panelTitle.textContent = "Pilih sebuah planet";
@@ -96,10 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ===== Responsif: skala otomatis sesuai lebar layar =====
   function resizeScene() {
-    const width = window.innerWidth;
-    const scale = Math.min(width / 900, 1);
+    const scale = Math.min(window.innerWidth / 900, 1);
     scene.style.transform = `scale(${scale})`;
     scene.style.transformOrigin = "top center";
   }
@@ -107,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resizeScene);
   resizeScene();
 
-  // ===== Default panel kosong =====
   panelTitle.textContent = "Pilih sebuah planet";
   planetData.innerHTML = "<dd>Klik salah satu planet di tata surya untuk melihat detailnya.</dd>";
 });
