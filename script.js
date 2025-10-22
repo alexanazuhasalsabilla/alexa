@@ -112,3 +112,10 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
+const light = document.getElementById("statusLight");
+playBtn.addEventListener("click", () => {
+  playing = !playing;
+  playBtn.textContent = playing ? "Jeda" : "Putar";
+  playBtn.setAttribute("aria-pressed", playing);
+  light.classList.toggle("off", !playing);
+});
