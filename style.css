@@ -321,3 +321,5 @@ summary::marker {
   opacity: 1;
 }
 
+.light { width:10px; height:10px; border-radius:50%; background:#4ade80; transition:.3s; }
+.light.off { background:#ef4444; }
