@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function resizeScene() {
     const width = window.innerWidth;
     const scale = Math.min(width / 900, 1);
-    scene.style.transform = scale(${scale});
+    scene.style.transform = `scale(${scale})`;
     scene.style.transformOrigin = "top center";
   }
 
